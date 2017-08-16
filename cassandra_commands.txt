@@ -1,0 +1,28 @@
+** These commands assume that the path had been set for cassandra in the PATH variable
+
+* to run cassandra just write
+' cassandra '
+
+* check the status of the nodes (nodetool basically helps in everything that deals with cassandra) 
+‘ nodetool status ‘ 
+
+* for further information
+‘ nodetool help ‘
+
+* to run the cqlsh shell
+‘ cqlsh ‘
+
+** some cqlsh commands (pretty much similar to normal sql)
+* Create a keycap
+‘ CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 }; ’
+
+* create a table in that keyspace 
+‘ USE "test"; ‘
+‘ CREATE TABLE my_table(key text PRIMARY KEY, value int); ‘
+
+* store some goodies
+‘ INSERT INTO my_table(key, value) VALUES ('key1', 1); ‘
+‘ INSERT INTO my_table(key, value) VALUES ('key2', 2); ‘
+
+* and retrieve them again
+‘ SELECT * from my_table; ’

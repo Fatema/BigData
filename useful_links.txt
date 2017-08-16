@@ -1,0 +1,29 @@
+** useful resources for Big Data project
+
+* to read from cassandra and write to kafka go through (it includes a docker install) 
+	http://docs.datamountaineer.com/en/latest/cassandra-source.html
+
+* using cassandra on docker
+	https://hub.docker.com/r/library/cassandra/
+
+* integrating apache nifi and apache kafka together
+	http://bryanbende.com/development/2016/09/15/apache-nifi-and-apache-kafka
+
+* to read from kafka and write to cassandra (this link gives full example on how to run it - bottom line needs a lot of things to work together *double sigh*)
+	https://www.confluent.io/blog/kafka-connect-cassandra-sink-the-perfect-match/
+will need confluent 3.0.0, link to download the connector
+	https://github.com/datamountaineer/stream-reactor/releases/tag/v0.2
+can use kcql (Kafka Connect Query Languages) for sql like selections
+	https://github.com/datamountaineer/kafka-connect-query-language
+
+* To get the connecters (source and sink) for kafka connect
+	https://www.confluent.io/product/connectors/
+
+* To connect cassandra and spark (datastax)
+	https://www.datastax.com/dev/blog/kindling-an-introduction-to-spark-with-cassandra-part-1
+
+* The spark-cassandra connector package much better than trying to build it
+	https://spark-packages.org/package/datastax/spark-cassandra-connector
+
+* A short tutorial on how to connect cassandra to spark (it uses an old version but it doesn’t really matter)
+	https://www.codementor.io/sheena/installing-cassandra-spark-linux-debian-ubuntu-14-du107vbhx

@@ -1,0 +1,30 @@
+**** The path for kafka is already set so can run those commands from anywhere
+
+** To create dummy records
+' kafka-producer-perf-test.sh --topic my-topic --num-records 50 --record-size 1 --throughput 10 --producer-props bootstrap.servers=localhost:9092 key.serializer=org.apache.kafka.common.serialization.StringSerializer value.serializer=org.apache.kafka.common.serialization.StringSerializer '
+
+** To run zookeeper
+' zookeeper-server-start.sh ~/Kafka/config/zookeer.properties '
+
+** To run a broker 
+' kafka-server-start.sh ~/Kafka/config/server-2.properties '
+
+** To run a producer 
+' kafka '
+
+** To create a topic 
+' kafka-topics.sh --create --topic my-topic --zookeeper localhost:2181 --replication-factor 1 --partitions 3 '
+
+** To check out the topics
+' kafka-topics.sh --describe --zookeeper localhost:2181 '
+
+** To alter some thing in a topic
+' kafka-topics.sh --zookeeper localhost:2181 --alter --topic my-topic --partitions 4 '
+
+** To delete kafka topic
+‘ kafka-topics.sh --delete --zookeeper localhost:2181 --topic my-other-topic ’
+
+**** Using confluent to run kafka and kafka connect
+
+** to run schema registry (this will also run kafka and zookeeper
+‘ confluent start schema-registry ‘

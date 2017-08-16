@@ -1,0 +1,64 @@
+** to get access to MS Azure Hortonworks Sandbox:
+set up the '.ssh/config' with
+Host azureSandbox
+  Port 22
+  User fatema
+  HostName 13.95.21.43
+  LocalForward 8080 127.0.0.1:8080
+  LocalForward 8888 127.0.0.1:8888
+  LocalForward 9995 127.0.0.1:9995
+  LocalForward 9996 127.0.0.1:9996
+  LocalForward 8886 127.0.0.1:8886
+  LocalForward 10500 127.0.0.1:10500
+  LocalForward 4200 127.0.0.1:4200
+  LocalForward 2222 127.0.0.1:2222
+then can just 'ssh azureSandbox'
+go to 'http://localhost:8080' and register
+the default ambari username: admin and password: hadoop
+do 'ssh -p 2222 root@localhost' and follow the directions
+then run 'ambari-admin-password-reset' to change the ambari password
+
+** to add a folder with it’s files from azure VM to the sandbox in docker:
+(first use cyberduck SFTP connection to connect to the VM and add all the files to it)
+docker cp /home/fatema/data/ sandbox:root/
+docker exec sandbox hadoop fs -put root/data /user/root/
+
+** to create a folder in the sandbox
+docker exec sandbox mkdir /practice_data/
+
+** all the 'docker exec sandbox' can be run directly when connecting to the sandbox with
+ssh -p 2222 root @localhost
+
+** to change the permissions of all files inside a folder in the hdfs system
+hadoop fs -chmod -R 700 /user/root/data
+
+** to completly delete/empty '.Trash' run
+hadoop fs -expunge
+
+** to access mysql from the sandbox 
+mysql -u root -p (password: hadoop)
+
+** when using 'mysql' always include the username:root and password:hadoop
+
+** for sqoop to return a list of the tables available in the connected database
+sqoop list-tables --connect jdbc:mysql://localhost/apple_historical_data --username=root --password=hadoop
+
+** to load data from a csv file
+-first add the files to the secure_file_priv folder you can check the location when you run 'show variables like "secure_file_priv";' in mysql terminal
+-then create a table
+create table historical_data (
+       date DATE,
+       open FLOAT(10,6),
+       high FLOAT(10,6),
+       low FLOAT(10,6),
+       close FLOAT(10,6),
+       adj_close FLOAT(10,6),
+       volume BIGINT) ;
+-then you can load the data from the csv make sure you got the right path (the secure_file_priv folder path or it will complain -.-)
+load data local infile '/var/lib/mysql-files/AAPL.csv' 
+     into table historical_data 
+     fields terminated by ',' 
+     lines terminated by '\n' 
+     ignore 1 lines 
+     (date,open,high,low,close,adj_close,volume);
+

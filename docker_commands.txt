@@ -1,0 +1,41 @@
+** make sure you start up docker first
+
+* for basic version info
+	docker -v
+
+* show more detailed version information 
+	docker version
+
+* show the entire information about the containers, storage used, ..etc
+	docker info
+
+* for a full list of the commands (help)
+	docker -h
+
+* for the docker commands info/help
+	docker <command> --help
+
+* start up a new container, make it interactive and assign it a TTY, then base the container on an Ubuntu image and inside the container run the bash process 
+	docker run -it ubuntu /bin/bash
+to run a CentOS
+	docker run -it centos /bin/bash
+can use all the commands related to ubunto or centos inside each container
+
+* to connect docker through a host (works on ubuntu terminal, byt maybe not mac need a proper host to test it and i don't want to bother with VM)
+	docker -H 192.168.99.1:2375 -d &
+then after that in the other machine
+	export DOCKER_HOST='<docker host>'
+now the docker running on the machine is the hosted docker
+
+* to remove a container
+	docker rm -f <container name>
+
+* to remove an image
+	docker rmi <image name>
+
+* to check the current running containers
+	docker ps
+for stopped containers just add ‘-a’
+
+* to go back into a container (first make sure it’s started)
+	docker attach <name or id of container>
